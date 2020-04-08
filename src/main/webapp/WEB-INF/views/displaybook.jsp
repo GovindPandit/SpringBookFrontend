@@ -3,6 +3,7 @@
 <%@taglib prefix="sp" uri="http://www.springframework.org/tags" %>
 <%@page isELIgnored="false" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,13 +32,16 @@
 						<h4 class="price">current price: <span>Rs. ${book.price}</span></h4>
 						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
 						<div class="action">
-							<button class="btn btn-primary">Add To Cart</button>
+							<a class="btn btn-primary" href="${pageContext.request.contextPath}/cart/add/${book.bookid}">Add To Cart</a>
 							<c:if test="${book.price>0}">
 								<a class="btn btn-warning" href="${pageContext.request.contextPath}/order/${book.bookid}">Buy</a>
 							</c:if>
 							
+							<sec:authorize access="hasAuthority('admin') and isAuthenticated()">
 							<a class="btn btn-danger" href="${pageContext.request.contextPath}/book/delete/${book.bookid}">Delete</a>
 							<a class="btn btn-warning" href="${pageContext.request.contextPath}/book/edit/${book.bookid}">Edit</a>
+							</sec:authorize>
+							
 							<c:if test="${book.price<=0}">
 								<a href="${book.booklink}" class="btn btn-success" target="_blank">Read</a>
 							</c:if>

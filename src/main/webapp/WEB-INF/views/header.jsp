@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page isELIgnored="false" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,28 +22,54 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-      	<!-- Expression Language (EL) -->
-        <a class="nav-link" href="${pageContext.request.contextPath}/home">Home <span class="sr-only">(current)</span></a>
-      </li>
+	    <li class="nav-item active">
+	      	<!-- Expression Language (EL) -->
+	        <a class="nav-link" href="${pageContext.request.contextPath}/home">Home <span class="sr-only">(current)</span></a>
+	      </li>
+      
+      <sec:authorize access="!isAuthenticated()">
+      
+      
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/user/login">Login</a>
       </li>
+      
+      
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/user/add">Register</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/book/add">AddBook</a>
-      </li>
+      
+      
+      
+      
+      </sec:authorize>
+
+
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/book/display">Books</a>
       </li>
+            
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/aboutus">About Us</a>
       </li>
+      
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/contactus">Contact Us</a>
       </li>
+      
+       <sec:authorize access="hasAuthority('admin') and isAuthenticated()">
+      <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/book/add">AddBook</a>
+      </li>
+      </sec:authorize>
+      
+       <sec:authorize access="isAuthenticated()">
+      <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/logout">Logout</a>
+      </li> 	
+       </sec:authorize>
+      
+      
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
