@@ -19,7 +19,7 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container">
 		<c:if test="${b==null}">
-		<sp:form modelAttribute="book" action="${pageContext.request.contextPath}/book/add" method="post" cssClass="col-lg-6 col-md-6 col-sm-12 col-xs-12 myclass">
+		<sp:form modelAttribute="book" action="${pageContext.request.contextPath}/book/add" method="post" cssClass="col-lg-6 col-md-6 col-sm-12 col-xs-12 myclass"  enctype="multipart/form-data">
 			<h1>Add Book</h1>
 			<div class="form-group">
 				<label>Enter BookName</label>
@@ -36,6 +36,10 @@
 			<div class="form-group">
 				<label>Enter Price</label>
 				<sp:input path="price" cssClass="form-control" placeholder="Enter Price"/>
+			</div>
+			<div class="form-group">
+				<label>Select Image</label>
+				<input type="file" name="image" accept="image/*"/>
 			</div>
 			<div class="form-group">
 				<input type="submit" value="Add Book" class="btn btn-primary btn-block"/>
