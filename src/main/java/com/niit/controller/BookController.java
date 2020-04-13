@@ -13,6 +13,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +40,7 @@ public class BookController
 	}
 	
 	@RequestMapping(value= {"/add"},method=RequestMethod.POST)
-	public String addBook(@ModelAttribute("book") Book b,@RequestParam("image") MultipartFile bookImage)
+	public String addBook(@ModelAttribute("book") Book b,@RequestParam("image") MultipartFile bookImage,ModelMap map)
 	{
 		bookService.addBook(b);
 		
@@ -79,7 +80,11 @@ public class BookController
 				System.out.println(e);
 			}
 		}
-		return "redirect:/";
+		
+		map.addAttribute("msg","Book addded sucessfully");
+		map.addAttribute("type","success");
+		map.addAttribute("pagename","/book/display");
+		return "popup";
 	}
 
 	public List<String> displayImage(String bookName)
@@ -143,10 +148,13 @@ public class BookController
 	}
 	
 	@RequestMapping("/delete/{bookid}")
-	public String deleteBook(@PathVariable("bookid") int bookid)
+	public String deleteBook(@PathVariable("bookid") int bookid,ModelMap map)
 	{
 		bookService.deleteBook(bookid);
-		return "redirect:/book/display";
+		map.addAttribute("msg","Book deleted sucessfully");
+		map.addAttribute("type","success");
+		map.addAttribute("pagename","/book/display");
+		return "popup";
 	}
 	
 	@RequestMapping("/edit/{bookid}")

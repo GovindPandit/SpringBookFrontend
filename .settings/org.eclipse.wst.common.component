@@ -4,7 +4,7 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="HibernateBackend-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/HibernateBackend/HibernateBackend">
+        <dependent-module archiveName="HibernateBackend-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/HibernateBookBAckend/HibernateBookBAckend">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="SpringFrontend"/>
