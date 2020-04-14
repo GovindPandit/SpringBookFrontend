@@ -164,4 +164,51 @@ public class BookController
 		map.addAttribute("b",b);
 		return "addbook";
 	}
+	
+	@RequestMapping("/hightolow")
+	public String highttolow(ModelMap map)
+	{
+		List<Book> books=new ArrayList<Book>();
+		for(Book b:bookService.displayBooksHighToLow())
+		{
+			List<String> im=displayImage(b.getBookname());
+			if(!im.isEmpty())
+			b.setBookimage(im.get(0));	
+			books.add(b);
+		}
+		map.addAttribute("books",books);
+		return "displaybooks";
+	}
+	
+	@RequestMapping("/lowtohigh")
+	public String lowtohigh(ModelMap map)
+	{
+		List<Book> books=new ArrayList<Book>();
+		for(Book b:bookService.displayBooksLowToHigh())
+		{
+			List<String> im=displayImage(b.getBookname());
+			if(!im.isEmpty())
+			b.setBookimage(im.get(0));	
+			books.add(b);
+		}
+		map.addAttribute("books",books);
+		return "displaybooks";
+	}
+	
+	@RequestMapping("/search")
+	public String search(@RequestParam("search") String search,ModelMap map)
+	{
+		List<Book> books=new ArrayList<Book>();
+		for(Book b:bookService.search(search))
+		{
+			List<String> im=displayImage(b.getBookname());
+			if(!im.isEmpty())
+			b.setBookimage(im.get(0));	
+			books.add(b);
+		}
+		map.addAttribute("books",books);
+		return "displaybooks";
+	}
+	
+	
 }
